@@ -36,6 +36,7 @@ def displayData(X, example_width=None, figsize=(10, 10)):
         ax.imshow(X[i].reshape(example_width, example_width, order='F'),
                   cmap='Greys', extent=[0, 1, 0, 1])
         ax.axis('off')
+    pyplot.show()
 
 
 def sigmoid(z):

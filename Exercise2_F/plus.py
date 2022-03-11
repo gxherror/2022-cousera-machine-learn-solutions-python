@@ -180,12 +180,13 @@ def costFunctionReg(theta, X, y, lambda_):
     grad = np.zeros(theta.shape)
     # ===================== YOUR CODE HERE ======================
     g=sigmoid(np.dot(X,theta.T))
-    for i in range(m):
-        J+=(-y[i])*np.log(g[i])-(1-y[i])*np.log(1-g[i])
+    #for i in range(m):
+    #    J+=(-y[i])*np.log(g[i])-(1-y[i])*np.log(1-g[i])
+    J+=(-np.dot(np.log(g).T,y)-np.dot(np.log(1-g).T,1-y))/m+np.sum(theta**2)*lambda_/(2*m)  
     delta=g-y
     grad=(np.dot(delta.T,X))/m+lambda_*theta/m
     grad[0]-=lambda_*theta[0]/m
-    J=J/m+lambda_*np.sum(theta**2)/(2*m)
+    #J=J/m+lambda_*np.sum(theta**2)/(2*m)
     # =============================================================
     return J, grad
 
@@ -350,7 +351,7 @@ def mapFeature(X1, X2, degree=6):
 
 # The first two columns contains the X values and the third column
 # contains the label (y).
-data = np.loadtxt(os.path.join('Exercise2/Data', 'ex2data2.txt'), delimiter=',')
+data = np.loadtxt(os.path.join('Exercise2_F/Data', 'ex2data2.txt'), delimiter=',')
 X = data[:, :2]
 y = data[:, 2]
 
@@ -372,9 +373,13 @@ initial_theta = np.zeros(X.shape[1])
 # because it is a python keyword
 # Compute and display initial cost and gradient for regularized logistic
 # regression
-theta,J_history=gradientDescentReg( X, y,initial_theta,alpha=0.01,lambda_=1,num_iters=10000)
+theta,J_history=gradientDescentReg( X, y,initial_theta,alpha=0.001,lambda_=0,num_iters=100000)
 
 
+
+#grader[5] = costFunctionReg
+#grader[6] = costFunctionReg
+#grader.grade()
 plotDecisionBoundary(theta,X,y)
 
 # Specified in plot order
