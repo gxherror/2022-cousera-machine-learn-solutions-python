@@ -285,7 +285,7 @@ debug_J, grad= nnCostFunction(nn_params, input_layer_size,
 print('\n\nCost at (fixed) debugging parameters (w/ lambda = %f): %f ' % (lambda_, debug_J))
 print('(for lambda = 3, this value should be about 0.576051)')
 
-'''
+
 print('Initializing Neural Network Parameters ...')
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size)
@@ -293,6 +293,44 @@ initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels)
 print(initial_Theta1,initial_Theta2)
 # Unroll parameters
 initial_nn_params = np.concatenate([initial_Theta1.ravel(), initial_Theta2.ravel()], axis=0)
+
+
+
+#  After you have completed the assignment, change the maxiter to a larger
+#  value to see how more training helps.
+options= {'maxiter': 100}
+
+#  You should also try different values of lambda
+lambda_ = 1
+
+# Create "short hand" for the cost function to be minimized
+costFunction = lambda p: nnCostFunction(p, input_layer_size,
+                                        hidden_layer_size,
+                                        num_labels, X, y, lambda_)
+
+# Now, costFunction is a function that takes in only one argument
+# (the neural network parameters)
+res = optimize.minimize(costFunction,
+                        initial_nn_params,
+                        jac=True,
+                        method='TNC',
+                        options=options)
+
+# get the solution of the optimization
+nn_params = res.x
+        
+# Obtain Theta1 and Theta2 back from nn_params
+Theta1 = np.reshape(nn_params[:hidden_layer_size * (input_layer_size + 1)],
+                    (hidden_layer_size, (input_layer_size + 1)))
+
+Theta2 = np.reshape(nn_params[(hidden_layer_size * (input_layer_size + 1)):],
+                    (num_labels, (hidden_layer_size + 1)))
+
+
+pred = utils.predict(Theta1, Theta2, X)
+print('Training Set Accuracy: %f' % (np.mean(pred == y) * 100))
+utils.displayData(Theta1[:, 1:])
+'''
 
 
 z = np.array([-1, -0.5, 0, 0.5, 1])
