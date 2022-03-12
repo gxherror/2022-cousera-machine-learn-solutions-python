@@ -34,8 +34,9 @@ def plotData(X, y, grid=False):
 
     # Plot Examples
     pyplot.plot(X[pos, 0], X[pos, 1], 'X', mew=1, ms=10, mec='k')
-    pyplot.plot(X[neg, 0], X[neg, 1], 'o', mew=1, mfc='y', ms=10, mec='k')
+    pyplot.plot(X[neg, 0], X[neg, 1], 'o', mew=1, mfc='r', ms=10, mec='k')
     pyplot.grid(grid)
+    pyplot.show()
 
 
 def svmTrain(X, Y, C, kernelFunction, tol=1e-3, max_passes=5, args=()):
@@ -287,8 +288,15 @@ def visualizeBoundaryLinear(X, y, model):
     xp = np.linspace(min(X[:, 0]), max(X[:, 0]), 100)
     yp = -(w[0] * xp + b)/w[1]
 
-    plotData(X, y)
+    pos = y == 1
+    neg = y == 0
+
+    # Plot Examples
+    pyplot.plot(X[pos, 0], X[pos, 1], 'X', mew=1, ms=10, mec='k')
+    pyplot.plot(X[neg, 0], X[neg, 1], 'o', mew=1, mfc='y', ms=10, mec='k')
+    
     pyplot.plot(xp, yp, '-b')
+    pyplot.show()
 
 
 def visualizeBoundary(X, y, model):
@@ -306,7 +314,12 @@ def visualizeBoundary(X, y, model):
     model : dict
         Dictionary of model variables learned by SVM.
     """
-    plotData(X, y)
+    pos = y == 1
+    neg = y == 0
+
+    # Plot Examples
+    pyplot.plot(X[pos, 0], X[pos, 1], 'X', mew=1, ms=10, mec='k')
+    pyplot.plot(X[neg, 0], X[neg, 1], 'o', mew=1, mfc='r', ms=10, mec='k')
 
     # make classification predictions over a grid of values
     x1plot = np.linspace(min(X[:, 0]), max(X[:, 0]), 100)
@@ -321,6 +334,7 @@ def visualizeBoundary(X, y, model):
     pyplot.contour(X1, X2, vals, colors='y', linewidths=2)
     pyplot.pcolormesh(X1, X2, vals, cmap='YlGnBu', alpha=0.25, edgecolors='None', lw=0)
     pyplot.grid(False)
+    pyplot.show()
 
 
 def getVocabList():
@@ -331,7 +345,7 @@ def getVocabList():
 
     :return:
     """
-    vocabList = np.genfromtxt(join('Data', 'vocab.txt'), dtype=object)
+    vocabList = np.genfromtxt(join('Exercise6/Data', 'vocab.txt'), dtype=object)
     return list(vocabList[:, 1].astype(str))
 
 
