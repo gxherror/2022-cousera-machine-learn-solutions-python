@@ -15,7 +15,7 @@ import utils
 # define the submission/grader object for this exercise
 grader = utils.Grader()
 # Read comma separated data
-data = np.loadtxt(os.path.join('Exercise1/Data', 'ex1data1.txt'), delimiter=',')
+data = np.loadtxt(os.path.join('Exercise1_F/Data', 'ex1data1.txt'), delimiter=',')
 x, y = data[:, 0], data[:, 1]   ##!!!!!!!!!!!!!!!!
 m = y.size  # number of training examples
 #Add a column of ones to X. The numpy function stack joins arrays along a given axis. 

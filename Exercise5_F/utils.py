@@ -160,7 +160,7 @@ class Grader(SubmissionBase):
                     res = np.hstack(func(self.X, self.y, self.Xval, self.yval)).tolist()
                 else:
                     raise KeyError
+                yield part_id, res
             except KeyError:
                 yield part_id, 0
-            yield part_id, res
-
+            
