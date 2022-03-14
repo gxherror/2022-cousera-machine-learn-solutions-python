@@ -334,8 +334,6 @@ def visualizeBoundary(X, y, model):
     pyplot.contour(X1, X2, vals, colors='y', linewidths=2)
     pyplot.pcolormesh(X1, X2, vals, cmap='YlGnBu', alpha=0.25, edgecolors='None', lw=0)
     pyplot.grid(False)
-    pyplot.show()
-
 
 def getVocabList():
     """
@@ -345,7 +343,7 @@ def getVocabList():
 
     :return:
     """
-    vocabList = np.genfromtxt(join('Exercise6/Data', 'vocab.txt'), dtype=object)
+    vocabList = np.genfromtxt(join('Data', 'vocab.txt'), dtype=object)
     return list(vocabList[:, 1].astype(str))
 
 
